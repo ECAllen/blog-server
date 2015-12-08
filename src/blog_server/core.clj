@@ -10,6 +10,7 @@
    [ring.middleware.cors :as cors]
    [io.clojure.liberator-transit :as transit]
    [ring.middleware.transit :as ring-transit]
+   [ring.adapter.jetty :refer [run-jetty]]
    [clojure.string :as str])
   (:import java.io.File))
 
@@ -49,7 +50,9 @@ so they left in obscurity and misery
 ;; ======================
 
 (compj/defroutes main-routes
-  (compj/GET "/posts/:userid" [userid] (posts userid)))
+  (compj/GET "/posts/:userid" [userid] (posts userid))
+  (route/not-found "<h1>Page not found</h1>")
+  )
 
 (def handler
   (-> main-routes
@@ -58,3 +61,6 @@ so they left in obscurity and misery
       (cors/wrap-cors :access-control-allow-origin [#".*"]
                       :access-control-allow-methods [:get :post :options]
                       :access-control-allow-headers ["content-type"])))
+
+(defn -main [& args]
+  (run-jetty handler {:port "4010":join? false})))

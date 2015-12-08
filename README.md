@@ -1,10 +1,10 @@
 # blog-server
 
-A Clojure library designed to ... well, that part is up to you.
+A server to serve blog-posts to a clojurescript front end. Mainly for code sketching. Do not use in production (yet).
 
 ## Usage
 
-FIXME
+Create a uberjar and deploy. 
 
 ## License
 

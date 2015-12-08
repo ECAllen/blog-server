@@ -1,6 +1,6 @@
 (defproject blog-server "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "server for blog posts"
+  :url "https://github.com/ECAllen/blog-server.git"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.7.0"]
@@ -12,4 +12,5 @@
                  [ring-cors "0.1.7"]
                  [ring/ring-core "1.4.0"]]
   :ring {:handler blog-server.core/handler}
+  :main blog-server.core
   :plugins [[lein-ring "0.8.11"]])
