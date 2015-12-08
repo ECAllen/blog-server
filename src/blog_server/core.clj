@@ -63,4 +63,4 @@ so they left in obscurity and misery
                       :access-control-allow-headers ["content-type"])))
 
 (defn -main [& args]
-  (run-jetty handler {:port "4010":join? false})))
+  (run-jetty handler {:port "4010":join? false}))
