@@ -19,7 +19,7 @@
 ;; ======================
 ;; Persist
 ;; ======================
-(def blog-file "ecallen.posts")
+(def blog-file "/usr/share/blog-server/ecallen.posts")
 
 (defn read-file [file]
   (ref (edn/read-string (slurp file))))
