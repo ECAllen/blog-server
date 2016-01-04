@@ -11,40 +11,38 @@
    [io.clojure.liberator-transit :as transit]
    [ring.middleware.transit :as ring-transit]
    [ring.adapter.jetty :refer [run-jetty]]
-   [clojure.string :as str])
+   [clojure.string :as str]
+   [clojure.edn :as edn])
   (:gen-class)
   (:import java.io.File))
 
-(def blog-posts
-  {:ecallen
-   {:dd6bff92-8e31-11e5-acb0-ffbf3d8c2695dd6bff92-8e31-11e5-acb0-ffbf3d8c2695
-    {:title "Bright Paper Werewolves"
-     :author "ECAllen"
-     :post-timestamp "1447878296"
-     :revision 0
-     :last-update "1447878296"
-     :text "c'mon polluted eyeballs
-stop scouting out the field
-jump up bright paper werewolves
-and everybody everywhere
+;; ======================
+;; Persist
+;; ======================
+(def blog-file "ecallen.posts")
 
-anyone can scratch
-and anyone can win
-so bring out another batch
+(defn read-file [file]
+  (ref (edn/read-string (slurp file))))
 
-they want to get out of here
-but they can't find the exit
-they cling to the cinema
-and they can't find security
-then they finally got recognized
-so they left in obscurity and misery
--Guided By Voices, Under the Bushes, Under the Stars"}}})
+(defn save-file [data file append-mode]
+  (with-open [f (clojure.java.io/writer file :append append-mode)]
+    (pp/pprint @data f)))
 
+(defn get-posts [file]
+  (if (not (.exists (File. file)))
+    (save-file (ref {}) file true))
+  (read-file file))
+
+(def blog-posts (get-posts blog-file))
+
+;; ======================
+;; Resources
+;; ======================
 (liber/defresource posts [userid]
   :available-media-types ["application/transit+json"
                           "application/transit+msgpack"
                           "application/json"]
-  :handle-ok (fn [_] (get blog-posts (keyword userid))))
+  :handle-ok (fn [_] (get @blog-posts (keyword userid))))
 
 ;; ======================
 ;; Routes
