@@ -10,7 +10,10 @@
                  [ring-transit "0.1.4"]
                  [liberator "0.14.0"]
                  [ring-cors "0.1.7"]
-                 [ring/ring-core "1.4.0"]]
+                 [ring/ring-core "1.4.0"]
+                 [ring/ring-jetty-adapter "1.4.0"]
+                 ]
   :ring {:handler blog-server.core/handler}
   :main blog-server.core
-  :plugins [[lein-ring "0.8.11"]])
+  :plugins [[lein-ring "0.8.11"]]
+  :profiles { :uberjar {:aot :all }})

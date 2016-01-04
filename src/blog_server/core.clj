@@ -12,6 +12,7 @@
    [ring.middleware.transit :as ring-transit]
    [ring.adapter.jetty :refer [run-jetty]]
    [clojure.string :as str])
+  (:gen-class)
   (:import java.io.File))
 
 (def blog-posts
@@ -51,8 +52,7 @@ so they left in obscurity and misery
 
 (compj/defroutes main-routes
   (compj/GET "/posts/:userid" [userid] (posts userid))
-  (route/not-found "<h1>Page not found</h1>")
-  )
+  (route/not-found "<h1>Page not found</h1>"))
 
 (def handler
   (-> main-routes
@@ -63,4 +63,4 @@ so they left in obscurity and misery
                       :access-control-allow-headers ["content-type"])))
 
 (defn -main [& args]
-  (run-jetty handler {:port "4010":join? false}))
+  (run-jetty handler {:port 4010 :join? false}))
