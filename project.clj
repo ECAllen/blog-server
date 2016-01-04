@@ -12,8 +12,11 @@
                  [ring-cors "0.1.7"]
                  [ring/ring-core "1.4.0"]
                  [ring/ring-jetty-adapter "1.4.0"]
-                 ]
+                 [environ "1.0.1"]]
+
   :ring {:handler blog-server.core/handler}
   :main blog-server.core
-  :plugins [[lein-ring "0.8.11"]]
-  :profiles { :uberjar {:aot :all }})
+  :plugins [[lein-ring "0.8.11"]
+            [lein-environ "1.0.1"]]
+  :profiles {:uberjar {:aot :all
+                       :env {:production true}}})

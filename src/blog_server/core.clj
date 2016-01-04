@@ -12,14 +12,16 @@
    [ring.middleware.transit :as ring-transit]
    [ring.adapter.jetty :refer [run-jetty]]
    [clojure.string :as str]
-   [clojure.edn :as edn])
+   [clojure.edn :as edn]
+   [environ.core :refer [env]])
   (:gen-class)
   (:import java.io.File))
 
 ;; ======================
 ;; Persist
 ;; ======================
-(def blog-file "/usr/share/blog-server/ecallen.posts")
+
+(def blog-file (env :blog-file))
 
 (defn read-file [file]
   (ref (edn/read-string (slurp file))))
