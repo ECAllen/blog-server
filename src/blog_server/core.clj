@@ -47,7 +47,7 @@
   :handle-ok (fn [_] (get @blog-posts (keyword userid))))
 
 ;; ======================
-;; Routes
+;; Routes/Hndlers
 ;; ======================
 
 (compj/defroutes main-routes
@@ -62,5 +62,11 @@
                       :access-control-allow-methods [:get :post :options]
                       :access-control-allow-headers ["content-type"])))
 
+;; ======================
+;; Main
+;; ======================
+
+(def port (env :port))
+
 (defn -main [& args]
-  (run-jetty handler {:port 4010 :join? false}))
+  (run-jetty handler {:port port :join? false}))
