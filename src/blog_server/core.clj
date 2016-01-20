@@ -1,4 +1,5 @@
 (ns blog-server.core
+  (:gen-class)
   (:require
    [liberator.core :as liber]
    [clojure.pprint :as pp]
@@ -14,7 +15,6 @@
    [clojure.string :as str]
    [clojure.edn :as edn]
    [environ.core :refer [env]])
-  (:gen-class)
   (:import java.io.File))
 
 ;; ======================
