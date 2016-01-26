@@ -12,6 +12,7 @@
                  [ring-cors "0.1.7"]
                  [ring/ring-core "1.4.0"]
                  [ring/ring-jetty-adapter "1.4.0"]
+                 [juxt/dirwatch "0.2.3"]
                  [environ "1.0.1"]]
 
   :ring {:handler blog-server.core/handler}
