@@ -50,11 +50,7 @@
   (let [file (-> event :file bean :path str)
         action (:action event)]
       (if (and (= action :modify) (= file blog-file))
-          (do (println "event " action "file " file)
-              (reset! blog-posts (read-file blog-file))
-              (println "============================")
-              (println (read-file blog-file))
-              (println "============================")))))
+          (do (reset! blog-posts (read-file blog-file))))))
 
 (watch-dir update-posts (clojure.java.io/file blog-dir))
 
