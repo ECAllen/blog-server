@@ -14,19 +14,22 @@
    [ring.adapter.jetty :refer [run-jetty]]
    [clojure.string :as str]
    [clojure.edn :as edn]
-   [juxt.dirwatch :refer (watch-dir)]
+   [juxt.dirwatch :refer [watch-dir]]
    [environ.core :refer [env]])
   (:import java.io.File))
+
 
 ;; ======================
 ;; Globals
 ;; ======================
 
 (def blog-file (env :blog-file))
-
 (def blog-dir (env :blog-dir))
+(def port (Integer/parseInt (env :port)))
 
-(def port (env :port))
+; (def blog-file "/home/ethan/projects/blog-posts/ecallen.posts")
+; (def blog-dir "/home/ethan/projects/blog-posts")
+; (def port 4010)
 
 ;; ======================
 ;; Persist
@@ -49,10 +52,10 @@
 (defn update-posts [event]
   (let [file (-> event :file bean :path str)
         action (:action event)]
-      (if (and (= action :modify) (= file blog-file))
-          (do (reset! blog-posts (read-file blog-file))))))
-
-(watch-dir update-posts (clojure.java.io/file blog-dir))
+    (if (and (= action :modify) (= file blog-file))
+      (do
+        ; (prn "debug" event)
+        (reset! blog-posts (read-file blog-file))))))
 
 ;; ======================
 ;; Resources
@@ -83,5 +86,6 @@
 ;; Main
 ;; ======================
 
-(defn -main [& args]
-  (run-jetty handler {:port port :join? false}))
+(defn -main [ & args]
+  (run-jetty handler {:port port :join? false})
+  (watch-dir update-posts (clojure.java.io/file blog-dir)))

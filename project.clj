@@ -13,11 +13,12 @@
                  [ring/ring-core "1.4.0"]
                  [ring/ring-jetty-adapter "1.4.0"]
                  [juxt/dirwatch "0.2.3"]
-                 [environ "1.0.1"]]
-
+                 [environ "1.0.2"]]
   :ring {:handler blog-server.core/handler}
   :main blog-server.core
-  :plugins [[lein-ring "0.8.11"]
-            [lein-environ "1.0.1"]]
-  :profiles {:uberjar {:aot :all
-                       :env {:production true}}})
+  :uberjar-name "blog-server.jar"
+  :profiles {:uberjar {:env {:production true}
+                       :aot :all
+                       :omit-source true}}
+ :plugins [[lein-ring "0.9.7"]
+           [lein-environ "1.0.2"]])
