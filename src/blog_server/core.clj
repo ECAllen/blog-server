@@ -18,7 +18,6 @@
    [environ.core :refer [env]])
   (:import java.io.File))
 
-
 ;; ======================
 ;; Globals
 ;; ======================
@@ -86,6 +85,6 @@
 ;; Main
 ;; ======================
 
-(defn -main [ & args]
+(defn -main [& args]
   (run-jetty handler {:port port :join? false})
   (watch-dir update-posts (clojure.java.io/file blog-dir)))
